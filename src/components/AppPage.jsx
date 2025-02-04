@@ -146,10 +146,6 @@ const AppPage = () => {
                 />
               </div>
             </div>
-
-            <button onClick={handleRetrieval} className="fetch-button">
-              Fetch Data
-            </button>
           </div>
 
           {data && (

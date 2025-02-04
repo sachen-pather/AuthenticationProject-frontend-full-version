@@ -18,7 +18,7 @@ const TimeSeriesChart = ({ data, xKey, yKey, title }) => {
   }));
 
   return (
-    <div className="chart-container" style={{ width: "100%", height: "450px" }}>
+    <div className="chart-container" style={{ width: "100%", height: "40%" }}>
       <h3>{title}</h3>
       <ResponsiveContainer>
         <LineChart

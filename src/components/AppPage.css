@@ -1,11 +1,13 @@
 .input-container {
   background-color: #f8f9fa;
+  min-height: fit-content;
+  height: 30vh;
   padding: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 2rem;
+  border: 2px solid #4f46e5;
 }
-
 .device-input {
   margin-bottom: 1.5rem;
 }
@@ -20,7 +22,7 @@
 }
 
 .device-input input {
-  width: 100%;
+  width: 95%;
   padding: 0.75rem;
   border: 1px solid #e1e4e8;
   border-radius: 4px;
@@ -45,7 +47,7 @@
 }
 
 .date-input input {
-  width: 100%;
+  width: 90%;
   padding: 0.75rem;
   border: 1px solid #e1e4e8;
   border-radius: 4px;
@@ -63,62 +65,4 @@
 .date-input input[type="datetime-local"] {
   background-color: white;
   cursor: pointer;
-}
-
-.fetch-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  width: 100%;
-}
-
-.fetch-button:hover {
-  background-color: #0056b3;
-}
-
-.fetch-button:active {
-  transform: translateY(1px);
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-  .date-container {
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .date-input {
-    width: 100%;
-  }
-}
-
-/* Dark mode styles */
-@media (prefers-color-scheme: dark) {
-  .input-container {
-    background-color: #2d3748;
-  }
-
-  .device-input label,
-  .date-input label {
-    color: #e2e8f0;
-  }
-
-  .device-input input,
-  .date-input input {
-    background-color: #1a202c;
-    border-color: #4a5568;
-    color: #e2e8f0;
-  }
-
-  .device-input input:focus,
-  .date-input input:focus {
-    border-color: #4299e1;
-    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
-  }
 }
