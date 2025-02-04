@@ -13,7 +13,14 @@
 
 .app-container {
   min-height: 100vh;
+  height: 100vh; /* Forces full viewport height */
+  width: 100vw; /* Forces full viewport width */
+  margin: 0;
+  padding: 0;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  overflow-x: hidden; /* Prevents horizontal scrolling */
+  display: flex;
+  flex-direction: column;
 }
 
 .nav-header {
@@ -93,4 +100,59 @@
   font-size: 1.25rem;
   color: var(--text-primary);
   margin-bottom: 2%;
+}
+
+/* Mobile styles */
+@media screen and (max-width: 768px) {
+  .content-card {
+    width: 92%; /* Wider on mobile */
+    padding: 6%; /* More padding on mobile */
+    margin: 1rem auto;
+  }
+
+  .nav-header {
+    background-color: var(--nav-bg);
+    padding: 0.6%;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-content {
+    width: 85%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .branding {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .nav-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .nav-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .logout-button {
+    padding: 0.4rem 1.2rem;
+    background-color: #811e6c;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+  }
 }
