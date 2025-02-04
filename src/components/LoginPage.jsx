@@ -17,6 +17,8 @@ const LoginPage = () => {
     setLoading(true);
 
     console.log("Login url:", import.meta.env.VITE_LOGIN_DATABASE);
+    console.log("data:", import.meta.env.VITE_DATA_DATABASE);
+    console.log("bearer:", import.meta.env.VITE_BEARER_TOKEN);
 
     try {
       const response = await fetch(
