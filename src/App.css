@@ -14,7 +14,7 @@
 .app-container {
   min-height: 100vh;
   height: 100vh; /* Forces full viewport height */
-  width: 100vw; /* Forces full viewport width */
+  width: 100%; /* Forces full viewport width */
   margin: 0;
   padding: 0;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -90,7 +90,7 @@
   min-height: fit-content;
   background-color: white;
   border-radius: 2%;
-  padding: 4%;
+  padding: 2%;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(5px);
   border-color: #4f46e5;
@@ -103,11 +103,22 @@
 }
 
 /* Mobile styles */
+/* First, ensure proper reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 @media screen and (max-width: 768px) {
   .content-card {
     width: 92%; /* Wider on mobile */
-    padding: 6%; /* More padding on mobile */
+    padding: 2%; /* More padding on mobile */
+    max-height: 80vh; /* Changed from fixed height to max-height */
+    min-height: fit-content;
     margin: 1rem auto;
+    overflow-x: hidden; /* Prevent horizontal scroll in card */
+    max-width: 1200px; /* Optional: prevent too wide on large screens */
   }
 
   .nav-header {
@@ -120,7 +131,7 @@
   }
 
   .nav-content {
-    width: 85%;
+    width: 95%;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -146,7 +157,7 @@
   }
 
   .logout-button {
-    padding: 0.4rem 1.2rem;
+    padding: 0.6rem 0.7rem;
     background-color: #811e6c;
     color: white;
     border: none;
@@ -154,5 +165,6 @@
     cursor: pointer;
     transition: all 0.2s ease;
     font-weight: 500;
+    white-space: nowrap;
   }
 }

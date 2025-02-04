@@ -66,3 +66,16 @@
   background-color: white;
   cursor: pointer;
 }
+
+@media screen and (max-width: 768px) {
+  .date-container {
+    flex-direction: column; /* Stack items vertically */
+    gap: 1.5rem; /* Increase gap for better mobile spacing */
+  }
+
+  .date-input input {
+    width: 95%; /* Full width inputs on mobile */
+    padding: 0.875rem; /* Slightly larger touch targets */
+    font-size: 1.1rem; /* Slightly larger font for mobile */
+  }
+}
