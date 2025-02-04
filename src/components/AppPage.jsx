@@ -53,6 +53,7 @@ const AppPage = () => {
   };
 
   const handleRetrieval = useCallback(async () => {
+    const startTime = performance.now();
     try {
       const response = await fetch(
         `${
@@ -69,9 +70,13 @@ const AppPage = () => {
       );
       console.log("Response status:", response.status);
       const jsonData = await response.json();
+      const endTime = performance.now();
+      console.log(`Data retrieval took ${endTime - startTime}ms`);
       console.log("Received data:", jsonData);
       setData(jsonData);
     } catch (error) {
+      const endTime = performance.now();
+      console.log(`Data retrieval failed after ${endTime - startTime}ms`);
       console.error("retrieval failed:", error);
       setData(null);
     }
