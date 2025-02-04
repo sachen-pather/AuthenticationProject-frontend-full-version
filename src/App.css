@@ -118,12 +118,13 @@
     min-height: fit-content;
     margin: 1rem auto;
     overflow-x: hidden; /* Prevent horizontal scroll in card */
+    overflow-y: hidden;
     max-width: 1200px; /* Optional: prevent too wide on large screens */
   }
 
   .nav-header {
     background-color: var(--nav-bg);
-    padding: 0.6%;
+    padding: 3%;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;

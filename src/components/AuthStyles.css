@@ -200,25 +200,20 @@
   }
 }
 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 /* Updated responsive adjustments */
-@media (max-width: 1024px) {
+@media screen and (max-width: 768px) {
   .auth-card {
     max-width: 700px;
     padding: 3rem;
   }
-}
 
-@media (max-width: 640px) {
-  .auth-card {
-    padding: 2rem;
-    max-width: 100%;
-  }
-
-  .auth-title {
-    font-size: 2rem;
-  }
-
-  .form-input {
-    width: 94%;
+  .form-group {
+    width: 104%;
   }
 }
