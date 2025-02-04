@@ -1,15 +1,19 @@
 import { useAuth } from "../AuthContext";
 import { useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import TimeSeriesChart from "./TimeSeriesChart";
 import "./AppPage.css";
 
 const AppPage = () => {
+  const navigate = useNavigate();
   const { isAuthenticated, setIsAuthenticated } = useAuth();
   const [data, setData] = useState(null);
   const [dataType, setDataType] = useState("pSC");
   const [deviceId, setDeviceId] = useState("e00fce68e3dabdc63fb13d69");
+  const [loading, setLoading] = useState(true);
 
-  const getDefaultDates = () => {
+  // Initialize dates
+  const getDefaultDates = useCallback(() => {
     const today = new Date();
     const yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate() - 1);
@@ -18,12 +22,26 @@ const AppPage = () => {
     const formattedYesterday = yesterday.toISOString().slice(0, 19);
 
     return { today: formattedToday, yesterday: formattedYesterday };
-  };
+  }, []);
 
-  const defaultDates = getDefaultDates();
-  const [startDate, setStartDate] = useState(defaultDates.yesterday);
-  const [endDate, setEndDate] = useState(defaultDates.today);
+  const [startDate, setStartDate] = useState(() => getDefaultDates().yesterday);
+  const [endDate, setEndDate] = useState(() => getDefaultDates().today);
 
+  // Authentication check
+  useEffect(() => {
+    const checkAuth = () => {
+      const storedAuth = localStorage.getItem("isAuthenticated");
+      if (!storedAuth) {
+        setIsAuthenticated(false);
+        navigate("/");
+      }
+      setLoading(false);
+    };
+
+    checkAuth();
+  }, [navigate, setIsAuthenticated]);
+
+  // Logout handler
   const handleLogout = async () => {
     try {
       const response = await fetch(
@@ -40,14 +58,23 @@ const AppPage = () => {
       if (response.ok) {
         localStorage.removeItem("isAuthenticated");
         setIsAuthenticated(false);
-        window.location.href = "/";
+        navigate("/");
+      } else {
+        console.error("Logout failed with status:", response.status);
       }
     } catch (error) {
       console.error("Logout failed:", error);
+      // Still clear local auth on error
+      localStorage.removeItem("isAuthenticated");
+      setIsAuthenticated(false);
+      navigate("/");
     }
   };
 
+  // Data retrieval handler
   const handleRetrieval = useCallback(async () => {
+    if (!isAuthenticated) return;
+
     if (
       !deviceId?.trim() ||
       !startDate?.trim() ||
@@ -74,11 +101,20 @@ const AppPage = () => {
           },
         }
       );
-      console.log("Response status:", response.status);
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          localStorage.removeItem("isAuthenticated");
+          setIsAuthenticated(false);
+          navigate("/");
+          return;
+        }
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const jsonData = await response.json();
       const endTime = performance.now();
       console.log(`Data retrieval took ${endTime - startTime}ms`);
-      console.log("Received data:", jsonData);
 
       if (!jsonData || (Array.isArray(jsonData) && jsonData.length === 0)) {
         console.log("Received empty data");
@@ -90,24 +126,30 @@ const AppPage = () => {
     } catch (error) {
       const endTime = performance.now();
       console.log(`Data retrieval failed after ${endTime - startTime}ms`);
-      console.error("retrieval failed:", error);
+      console.error("Retrieval failed:", error);
       setData(null);
     }
-  }, [deviceId, startDate, endDate, dataType]);
+  }, [
+    deviceId,
+    startDate,
+    endDate,
+    dataType,
+    isAuthenticated,
+    navigate,
+    setIsAuthenticated,
+  ]);
 
-  // Authentication check effect
+  // Effect for data retrieval
   useEffect(() => {
-    if (!isAuthenticated) {
-      window.location.href = "/";
+    if (isAuthenticated && !loading) {
+      handleRetrieval();
     }
-  }, [isAuthenticated]);
+  }, [handleRetrieval, isAuthenticated, loading]);
 
-  // Data retrieval effect
-  useEffect(() => {
-    handleRetrieval();
-  }, [handleRetrieval]);
+  if (loading) {
+    return <div className="loading">Loading...</div>;
+  }
 
-  // Early return after all hooks
   if (!isAuthenticated) {
     return null;
   }
@@ -178,8 +220,8 @@ const AppPage = () => {
             <TimeSeriesChart
               data={data}
               xKey="ts"
-              yKey={`${dataType}`}
-              title={`${dataType}  Over Time`}
+              yKey={dataType}
+              title={`${dataType} Over Time`}
             />
           )}
         </div>
