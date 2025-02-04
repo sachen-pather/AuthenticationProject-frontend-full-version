@@ -36,6 +36,10 @@ const AppPage = () => {
         `${import.meta.env.VITE_LOGIN_DATABASE}/Account/logout`,
         {
           method: "GET",
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_BEARER_LOGIN}`,
+            "Content-Type": "application/json",
+          },
         }
       );
 

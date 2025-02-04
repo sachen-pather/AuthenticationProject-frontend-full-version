@@ -28,6 +28,7 @@ const RegisterPage = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${import.meta.env.VITE_BEARER_LOGIN}`,
           },
           body: JSON.stringify({
             Email: email,
