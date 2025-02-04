@@ -1,15 +1,16 @@
 .input-container {
   background-color: #f8f9fa;
   min-height: fit-content;
-  height: 30vh;
-  padding: 1.5rem;
+  height: auto; /* Changed from fixed height */
+  padding: 1rem; /* Reduced padding */
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
+  margin-bottom: 1rem; /* Reduced margin */
   border: 2px solid #4f46e5;
 }
+
 .device-input {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem; /* Reduced margin */
 }
 
 .device-input label,
@@ -17,7 +18,7 @@
   display: block;
   font-weight: 600;
   color: #333;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem; /* Reduced margin */
   font-size: 0.9rem;
 }
 
@@ -30,20 +31,10 @@
   transition: border-color 0.2s ease;
 }
 
-.device-input input:focus {
-  border-color: #007bff;
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
-}
-
 .date-container {
   display: flex;
   gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.date-input {
-  flex: 1;
+  margin-bottom: 1rem; /* Reduced margin */
 }
 
 .date-input input {
@@ -52,30 +43,51 @@
   border: 1px solid #e1e4e8;
   border-radius: 4px;
   font-size: 1rem;
-  transition: border-color 0.2s ease;
 }
 
-.date-input input:focus {
-  border-color: #007bff;
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
-}
-
-/* Style the datetime-local input calendar icon */
-.date-input input[type="datetime-local"] {
-  background-color: white;
-  cursor: pointer;
-}
-
+/* Mobile styles */
 @media screen and (max-width: 768px) {
-  .date-container {
-    flex-direction: column; /* Stack items vertically */
-    gap: 1.5rem; /* Increase gap for better mobile spacing */
+  .input-container {
+    padding: 0.75rem; /* Further reduced padding */
+    margin-bottom: 0.75rem;
   }
 
+  .device-input {
+    margin-bottom: 0.75rem; /* Reduced margin */
+  }
+
+  .device-input label,
+  .date-input label {
+    font-size: 0.85rem; /* Smaller font */
+    margin-bottom: 0.2rem;
+  }
+
+  .date-container {
+    flex-direction: column;
+    gap: 0.75rem; /* Reduced gap */
+  }
+
+  .device-input input,
   .date-input input {
-    width: 95%; /* Full width inputs on mobile */
-    padding: 0.875rem; /* Slightly larger touch targets */
-    font-size: 1.1rem; /* Slightly larger font for mobile */
+    width: 100%;
+    padding: 0.6rem; /* Reduced padding */
+    font-size: 0.9rem; /* Smaller font */
+  }
+}
+
+/* Even smaller screens */
+@media screen and (max-width: 480px) {
+  .input-container {
+    padding: 0.5rem;
+  }
+
+  .device-input,
+  .date-input {
+    margin-bottom: 0.5rem;
+  }
+
+  .device-input input,
+  .date-input input {
+    padding: 0.5rem;
   }
 }
