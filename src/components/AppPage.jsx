@@ -53,6 +53,18 @@ const AppPage = () => {
   };
 
   const handleRetrieval = useCallback(async () => {
+    // Check for null or empty values
+    if (
+      !deviceId?.trim() ||
+      !startDate?.trim() ||
+      !endDate?.trim() ||
+      !dataType?.trim()
+    ) {
+      console.log("Missing required parameters - skipping data retrieval");
+      setData(null);
+      return;
+    }
+
     const startTime = performance.now();
     try {
       const response = await fetch(
@@ -73,6 +85,14 @@ const AppPage = () => {
       const endTime = performance.now();
       console.log(`Data retrieval took ${endTime - startTime}ms`);
       console.log("Received data:", jsonData);
+
+      // Check if the received data is empty or null
+      if (!jsonData || (Array.isArray(jsonData) && jsonData.length === 0)) {
+        console.log("Received empty data");
+        setData(null);
+        return;
+      }
+
       setData(jsonData);
     } catch (error) {
       const endTime = performance.now();
