@@ -1,0 +1,124 @@
+.input-container {
+  background-color: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.device-input {
+  margin-bottom: 1.5rem;
+}
+
+.device-input label,
+.date-input label {
+  display: block;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.device-input input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e1e4e8;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.device-input input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.date-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.date-input {
+  flex: 1;
+}
+
+.date-input input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e1e4e8;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.date-input input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+/* Style the datetime-local input calendar icon */
+.date-input input[type="datetime-local"] {
+  background-color: white;
+  cursor: pointer;
+}
+
+.fetch-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  width: 100%;
+}
+
+.fetch-button:hover {
+  background-color: #0056b3;
+}
+
+.fetch-button:active {
+  transform: translateY(1px);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .date-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .date-input {
+    width: 100%;
+  }
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  .input-container {
+    background-color: #2d3748;
+  }
+
+  .device-input label,
+  .date-input label {
+    color: #e2e8f0;
+  }
+
+  .device-input input,
+  .date-input input {
+    background-color: #1a202c;
+    border-color: #4a5568;
+    color: #e2e8f0;
+  }
+
+  .device-input input:focus,
+  .date-input input:focus {
+    border-color: #4299e1;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+  }
+}

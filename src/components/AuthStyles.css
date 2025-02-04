@@ -1,0 +1,224 @@
+/* AuthStyles.css */
+:root {
+  --primary-color: #4f46e5;
+  --primary-hover: #4338ca;
+  --error-color: #ef4444;
+  --success-color: #22c55e;
+  --background-color: #f3f4f6;
+  --card-background: #ffffff;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --border-color: #e5e7eb;
+}
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    135deg,
+    #667eea 0%,
+    #764ba2 100%
+  ); /* Beautiful gradient background */
+  padding: 2rem;
+  background-size: cover;
+  position: relative;
+}
+
+/* Optional: Add a subtle pattern overlay */
+.auth-page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(
+      circle at 25px 25px,
+      rgba(255, 255, 255, 0.2) 2%,
+      transparent 0%
+    ),
+    radial-gradient(
+      circle at 75px 75px,
+      rgba(255, 255, 255, 0.2) 2%,
+      transparent 0%
+    );
+  background-size: 100px 100px;
+  pointer-events: none;
+}
+
+/* Increased max-width and padding */
+.auth-card {
+  background-color: var(--card-background);
+  padding: 4rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2),
+    0 10px 10px -5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 900px;
+  position: relative; /* To appear above the pattern */
+  backdrop-filter: blur(
+    5px
+  ); /* Optional: adds a slight blur effect to the background */
+}
+/* Increased spacing */
+.auth-header {
+  text-align: center;
+  margin-bottom: 3rem; /* Increased from 2rem */
+}
+
+/* Larger title */
+.auth-title {
+  color: var(--text-primary);
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.auth-card:hover {
+  transform: translateY(-2px);
+  transition: transform 0.3s ease;
+}
+
+/* Larger subtitle */
+.auth-subtitle {
+  color: var(--text-secondary);
+  font-size: 1.125rem; /* Increased from 0.875rem */
+}
+
+/* Increased spacing between form elements */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* Increased from 1.25rem */
+  max-width: 700px; /* Added max-width for form */
+  margin: 0 auto; /* Center the form */
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* Increased from 0.5rem */
+}
+
+/* Larger labels */
+.form-label {
+  color: var(--text-primary);
+  font-size: 1.125rem; /* Increased from 0.875rem */
+  font-weight: 500;
+}
+
+/* Larger inputs */
+.form-input {
+  padding: 1rem 1.25rem; /* Increased padding */
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem; /* Increased radius */
+  font-size: 1.125rem; /* Increased font size */
+  width: 97%; /* Adjusted to account for padding */
+  transition: border-color 0.15s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1); /* Increased shadow */
+}
+
+/* Larger error message */
+.error-message {
+  background-color: #fef2f2;
+  color: var(--error-color);
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  border: 1px solid #fee2e2;
+  margin-bottom: 1.5rem;
+  font-size: 1.125rem;
+}
+
+/* Larger button */
+.auth-button {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 1rem 2rem; /* Increased padding */
+  border-radius: 0.75rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  width: 100%;
+  height: 3.5rem; /* Increased height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem; /* Added larger font size */
+}
+
+.auth-button:hover {
+  background-color: var(--primary-hover);
+}
+
+.auth-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Larger footer text */
+.auth-footer {
+  margin-top: 2.5rem; /* Increased from 1.5rem */
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 1.125rem; /* Increased from 0.875rem */
+}
+
+.auth-link {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+
+.auth-link:hover {
+  color: var(--primary-hover);
+}
+
+/* Larger spinner */
+.spinner {
+  animation: spin 1s linear infinite;
+  width: 1.5rem; /* Increased from 1.25rem */
+  height: 1.5rem; /* Increased from 1.25rem */
+  margin-right: 0.75rem;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Updated responsive adjustments */
+@media (max-width: 1024px) {
+  .auth-card {
+    max-width: 700px;
+    padding: 3rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .auth-card {
+    padding: 2rem;
+    max-width: 100%;
+  }
+
+  .auth-title {
+    font-size: 2rem;
+  }
+
+  .form-input {
+    width: 94%;
+  }
+}
