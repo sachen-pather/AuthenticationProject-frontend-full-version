@@ -28,9 +28,18 @@ const TimeSeriesChart = ({ data, xKey, yKey, title }) => {
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
             dataKey="formattedTime"
-            angle={-45}
+            angle={-60}
             textAnchor="end"
-            height={120}
+            height={40}
+            tick={{ fontSize: 10 }} // Smaller font size
+            tickFormatter={(timeStr) => {
+              const date = new Date(timeStr);
+              return date.toLocaleDateString(undefined, {
+                day: "numeric",
+                month: "numeric",
+                year: "numeric",
+              });
+            }}
           />
           <YAxis />
           <Tooltip />
