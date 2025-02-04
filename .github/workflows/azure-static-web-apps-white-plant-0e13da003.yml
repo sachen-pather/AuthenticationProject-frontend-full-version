@@ -26,6 +26,7 @@ jobs:
           VITE_BEARER_TOKEN: ${{ secrets.VITE_BEARER_TOKEN }}
           VITE_DATA_DATABASE: ${{ secrets.VITE_DATA_DATABASE }}
           VITE_LOGIN_DATABASE: ${{ secrets.VITE_LOGIN_DATABASE }}
+          VITE_BEARER_LOGIN: ${{ secrets.VITE_BEARER_LOGIN }}
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_WHITE_PLANT_0E13DA003 }}
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
@@ -49,6 +50,7 @@ jobs:
           VITE_BEARER_TOKEN: ${{ secrets.VITE_BEARER_TOKEN }}
           VITE_DATA_DATABASE: ${{ secrets.VITE_DATA_DATABASE }}
           VITE_LOGIN_DATABASE: ${{ secrets.VITE_LOGIN_DATABASE }}
+          VITE_BEARER_LOGIN: ${{ secrets.VITE_BEARER_LOGIN }}
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_WHITE_PLANT_0E13DA003 }}
           action: "close"
