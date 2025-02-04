@@ -16,6 +16,8 @@ const LoginPage = () => {
     setError("");
     setLoading(true);
 
+    console.log("Login url:", import.meta.env.VITE_LOGIN_DATABASE);
+
     try {
       const response = await fetch(
         `${import.meta.env.VITE_LOGIN_DATABASE}/Account/login`,
