@@ -2,14 +2,12 @@ import { useAuth } from "../AuthContext";
 import { useState, useEffect, useCallback } from "react";
 import TimeSeriesChart from "./TimeSeriesChart";
 import "./AppPage.css";
-import { useNavigate } from "react-router-dom";
 
 const AppPage = () => {
   const { setIsAuthenticated } = useAuth();
   const [data, setData] = useState(null);
   const [dataType, setDataType] = useState("pSC");
   const [deviceId, setDeviceId] = useState("e00fce68e3dabdc63fb13d69");
-  const navigate = useNavigate();
 
   const getDefaultDates = () => {
     const today = new Date();
@@ -43,7 +41,7 @@ const AppPage = () => {
 
       if (response.ok) {
         setIsAuthenticated(false);
-        navigate("/login");
+        window.location.href = "/";
       }
     } catch (error) {
       console.error("Logout failed:", error);
