@@ -34,17 +34,27 @@ const LoginPage = () => {
       );
 
       if (response.ok) {
-        // const data = await response.json();
+        // Store authentication state in localStorage
+        localStorage.setItem("isAuthenticated", "true");
+        // Also store email for user reference (optional)
+        localStorage.setItem("userEmail", email);
+
         setIsAuthenticated(true);
         navigate("/app");
       } else {
         const errorData = await response.json();
         setError(errorData.message || "Invalid login attempt");
+        // Clear localStorage on failed login attempt
+        localStorage.removeItem("isAuthenticated");
+        localStorage.removeItem("userEmail");
       }
     } catch {
       setError(
         "An error occurred while trying to login. Please check your connection."
       );
+      // Clear localStorage on error
+      localStorage.removeItem("isAuthenticated");
+      localStorage.removeItem("userEmail");
     } finally {
       setLoading(false);
     }

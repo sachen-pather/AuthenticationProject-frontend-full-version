@@ -4,7 +4,7 @@ import TimeSeriesChart from "./TimeSeriesChart";
 import "./AppPage.css";
 
 const AppPage = () => {
-  const { setIsAuthenticated } = useAuth();
+  const { isAuthenticated, setIsAuthenticated } = useAuth();
   const [data, setData] = useState(null);
   const [dataType, setDataType] = useState("pSC");
   const [deviceId, setDeviceId] = useState("e00fce68e3dabdc63fb13d69");
@@ -14,7 +14,6 @@ const AppPage = () => {
     const yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate() - 1);
 
-    // Format dates to ISO string and slice to get the format "YYYY-MM-DDTHH:mm:ss"
     const formattedToday = today.toISOString().slice(0, 19);
     const formattedYesterday = yesterday.toISOString().slice(0, 19);
 
@@ -24,11 +23,6 @@ const AppPage = () => {
   const defaultDates = getDefaultDates();
   const [startDate, setStartDate] = useState(defaultDates.yesterday);
   const [endDate, setEndDate] = useState(defaultDates.today);
-
-  /* const formatDateTime = (date, time) => {
-    if (!date || !time) return "";
-    return `${date}T${time}`;
-  };*/
 
   const handleLogout = async () => {
     try {
@@ -44,6 +38,7 @@ const AppPage = () => {
       );
 
       if (response.ok) {
+        localStorage.removeItem("isAuthenticated");
         setIsAuthenticated(false);
         window.location.href = "/";
       }
@@ -53,7 +48,6 @@ const AppPage = () => {
   };
 
   const handleRetrieval = useCallback(async () => {
-    // Check for null or empty values
     if (
       !deviceId?.trim() ||
       !startDate?.trim() ||
@@ -86,7 +80,6 @@ const AppPage = () => {
       console.log(`Data retrieval took ${endTime - startTime}ms`);
       console.log("Received data:", jsonData);
 
-      // Check if the received data is empty or null
       if (!jsonData || (Array.isArray(jsonData) && jsonData.length === 0)) {
         console.log("Received empty data");
         setData(null);
@@ -102,9 +95,22 @@ const AppPage = () => {
     }
   }, [deviceId, startDate, endDate, dataType]);
 
+  // Authentication check effect
+  useEffect(() => {
+    if (!isAuthenticated) {
+      window.location.href = "/";
+    }
+  }, [isAuthenticated]);
+
+  // Data retrieval effect
   useEffect(() => {
     handleRetrieval();
   }, [handleRetrieval]);
+
+  // Early return after all hooks
+  if (!isAuthenticated) {
+    return null;
+  }
 
   return (
     <div className="app-container">
