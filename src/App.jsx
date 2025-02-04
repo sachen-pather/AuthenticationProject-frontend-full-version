@@ -1,20 +1,15 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "./components/LoginPage";
 import RegisterPage from "./components/RegisterPage";
 import AppPage from "./components/AppPage";
-import { AuthProvider, useAuth } from "./AuthContext";
+import { useAuth } from "./AuthContext";
 import "./App.css";
 import PropTypes from "prop-types";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
   if (!isAuthenticated) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/login" />;
   }
   return children;
 };
@@ -25,22 +20,21 @@ ProtectedRoute.propTypes = {
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route
-            path="/app"
-            element={
-              <ProtectedRoute>
-                <AppPage />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </Router>
-    </AuthProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route
+          path="/app"
+          element={
+            <ProtectedRoute>
+              <AppPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/" element={<Navigate to="/login" />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
