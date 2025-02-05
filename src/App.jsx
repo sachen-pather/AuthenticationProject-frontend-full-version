@@ -7,6 +7,7 @@ import {
 import LoginPage from "./components/LoginPage";
 import RegisterPage from "./components/RegisterPage";
 import AppPage from "./components/AppPage";
+import VerifyEmail from "./components/VerifyEmail";
 import { AuthProvider, useAuth } from "./AuthContext";
 import "./App.css";
 import PropTypes from "prop-types";
@@ -23,6 +24,7 @@ ProtectedRoute.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
+// App.jsx - Add new route
 function App() {
   return (
     <AuthProvider>
@@ -30,6 +32,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/verify-email" element={<VerifyEmail />} />
           <Route
             path="/app"
             element={

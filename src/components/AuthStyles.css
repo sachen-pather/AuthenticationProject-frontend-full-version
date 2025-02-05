@@ -137,6 +137,16 @@
   font-size: 1.125rem;
 }
 
+.success-message {
+  background-color: #fef2f2;
+  color: var(--success-color);
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  border: 1px solid #fee2e2;
+  margin-bottom: 1.5rem;
+  font-size: 1.125rem;
+}
+
 /* Larger button */
 .auth-button {
   background-color: var(--primary-color);

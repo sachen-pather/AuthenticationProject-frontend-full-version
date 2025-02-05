@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./AuthStyles.css";
 
 const RegisterPage = () => {
@@ -7,8 +7,8 @@ const RegisterPage = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState(""); // Add this line
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -39,8 +39,10 @@ const RegisterPage = () => {
       );
 
       if (response.ok) {
-        //const data = await response.json();
-        navigate("/");
+        // Show success message and don't navigate
+        setSuccess(
+          "Registration successful! Please check your email to verify your account."
+        );
       } else {
         const errorData = await response.json();
         setError(errorData.message || "Registration failed. Please try again.");
@@ -51,7 +53,6 @@ const RegisterPage = () => {
       setLoading(false);
     }
   };
-
   return (
     <div className="auth-page">
       <div className="auth-card">
@@ -59,9 +60,9 @@ const RegisterPage = () => {
           <h2 className="auth-title">Create Account</h2>
           <p className="auth-subtitle">Sign up to get started</p>
         </div>
-
         {error && <div className="error-message">{error}</div>}
-
+        {success && <div className="success-message">{success}</div>}{" "}
+        {/* Add this line */}
         <form onSubmit={handleRegister} className="auth-form">
           <div className="form-group">
             <label htmlFor="email" className="form-label">
@@ -139,7 +140,6 @@ const RegisterPage = () => {
             )}
           </button>
         </form>
-
         <div className="auth-footer">
           Already have an account?{" "}
           <Link to="/" className="auth-link">
