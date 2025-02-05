@@ -93,7 +93,7 @@ const TimeSeriesChart = ({ data, xKey, yKey, title }) => {
             dataKey="formattedTime"
             height={30} // Less thick
             stroke="#00FF00"
-            y={chartDimensions.height * 0.85} // Shift down
+            y={chartDimensions.height * 0.8} // Shift down
             fill="#000000" // Fill inside with black
           />
         </LineChart>
