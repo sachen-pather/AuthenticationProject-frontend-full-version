@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import {
   LineChart,
@@ -10,6 +11,38 @@ import {
 } from "recharts";
 
 const TimeSeriesChart = ({ data, xKey, yKey, title }) => {
+  const chartContainerRef = useRef(null);
+  const [chartDimensions, setChartDimensions] = useState({
+    width: 0,
+    height: 0,
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (chartContainerRef.current) {
+        setChartDimensions({
+          width: chartContainerRef.current.offsetWidth,
+          height: chartContainerRef.current.offsetHeight,
+        });
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const marginPercentage = 0.1; // 10% margin
+  const margin = {
+    top: chartDimensions.height * marginPercentage,
+    right: chartDimensions.width * marginPercentage,
+    bottom: chartDimensions.height * marginPercentage,
+    left: chartDimensions.width * marginPercentage,
+  };
+
   // Convert timestamp to readable date
   const formattedData = data.map((item) => ({
     ...item,
@@ -18,6 +51,7 @@ const TimeSeriesChart = ({ data, xKey, yKey, title }) => {
 
   return (
     <div
+      ref={chartContainerRef}
       className="chart-container"
       style={{
         width: "100%",
@@ -28,10 +62,7 @@ const TimeSeriesChart = ({ data, xKey, yKey, title }) => {
     >
       <h3 style={{ color: "white" }}>{title}</h3>
       <ResponsiveContainer>
-        <LineChart
-          data={formattedData}
-          margin={{ top: 5, right: 30, left: 0, bottom: 40 }} // Increased bottom margin
-        >
+        <LineChart data={formattedData} margin={margin}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
             dataKey="formattedTime"

@@ -79,12 +79,12 @@
 
 .main-content {
   width: 100%;
-  /*  max-width: 1200px; */
-  margin: 0 auto;
-  padding: 2rem 1rem;
+  margin: 0 auto; /* Centers the element horizontally */
+  padding: 1% 2%; /* Changed padding to percentage */
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 50vh; /* Set a minimum height */
 }
 
 .content-card {

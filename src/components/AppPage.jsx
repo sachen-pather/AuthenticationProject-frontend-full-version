@@ -222,8 +222,6 @@ const AppPage = () => {
               xKey="ts"
               yKey={dataType}
               title={`${dataType} Over Time`}
-              xAxisTitle="" // Pass an empty string to remove the x-axis title
-              yAxisTitle="" // Pass an empty string to remove the x-axis title
             />
           )}
         </div>
