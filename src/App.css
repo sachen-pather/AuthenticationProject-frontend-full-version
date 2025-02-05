@@ -85,6 +85,7 @@
   justify-content: center;
   align-items: center;
   min-height: 50vh; /* Set a minimum height */
+  margin-top: 2rem;
 }
 
 .content-card {

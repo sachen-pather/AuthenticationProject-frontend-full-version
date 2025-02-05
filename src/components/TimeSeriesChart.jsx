@@ -8,6 +8,7 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  Brush,
 } from "recharts";
 
 const TimeSeriesChart = ({ data, xKey, yKey, title }) => {
@@ -87,6 +88,13 @@ const TimeSeriesChart = ({ data, xKey, yKey, title }) => {
             stroke="#00FF00" // Green color
             strokeWidth={3} // Thick line
             dot={false}
+          />
+          <Brush
+            dataKey="formattedTime"
+            height={30} // Less thick
+            stroke="#00FF00"
+            y={chartDimensions.height * 0.85} // Shift down
+            fill="#000000" // Fill inside with black
           />
         </LineChart>
       </ResponsiveContainer>
