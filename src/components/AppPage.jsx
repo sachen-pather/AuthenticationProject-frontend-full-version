@@ -222,6 +222,8 @@ const AppPage = () => {
               xKey="ts"
               yKey={dataType}
               title={`${dataType} Over Time`}
+              startDate={`${startDate}`}
+              endDate={`${endDate}`}
             />
           )}
         </div>

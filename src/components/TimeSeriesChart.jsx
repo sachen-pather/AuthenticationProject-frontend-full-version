@@ -11,7 +11,7 @@ import {
   Brush,
 } from "recharts";
 
-const TimeSeriesChart = ({ data, xKey, yKey, title }) => {
+const TimeSeriesChart = ({ data, xKey, yKey, title, startDate, endDate }) => {
   const chartContainerRef = useRef(null);
   const [chartDimensions, setChartDimensions] = useState({
     width: 0,
@@ -44,6 +44,11 @@ const TimeSeriesChart = ({ data, xKey, yKey, title }) => {
     left: 0,
   };
 
+  // Calculate the difference between start and end dates
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  const dateDifference = (end - start) / (1000 * 60 * 60 * 24); // Difference in days
+
   // Convert timestamp to readable date
   const formattedData = data.map((item) => ({
     ...item,
@@ -73,11 +78,16 @@ const TimeSeriesChart = ({ data, xKey, yKey, title }) => {
             tick={{ fontSize: 10, fill: "white" }} // Smaller font size and white color
             tickFormatter={(timeStr) => {
               const date = new Date(timeStr);
-              return date.toLocaleDateString(undefined, {
-                day: "numeric",
-                month: "numeric",
-                year: "numeric",
-              });
+              return dateDifference <= 1
+                ? date.toLocaleTimeString(undefined, {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })
+                : date.toLocaleDateString(undefined, {
+                    day: "numeric",
+                    month: "numeric",
+                    year: "numeric",
+                  });
             }}
           />
           <YAxis tick={{ fill: "white" }} />
@@ -107,6 +117,8 @@ TimeSeriesChart.propTypes = {
   xKey: PropTypes.string.isRequired,
   yKey: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  startDate: PropTypes.string.isRequired,
+  endDate: PropTypes.string.isRequired,
 };
 
 export default TimeSeriesChart;
