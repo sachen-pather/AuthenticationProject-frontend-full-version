@@ -6,7 +6,6 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
 } from "recharts";
 
@@ -18,12 +17,20 @@ const TimeSeriesChart = ({ data, xKey, yKey, title }) => {
   }));
 
   return (
-    <div className="chart-container" style={{ width: "100%", height: "65%" }}>
-      <h3>{title}</h3>
+    <div
+      className="chart-container"
+      style={{
+        width: "100%",
+        height: "65%",
+        backgroundColor: "black",
+        border: "2px solid #00ff00", // Added border
+      }}
+    >
+      <h3 style={{ color: "white" }}>{title}</h3>
       <ResponsiveContainer>
         <LineChart
           data={formattedData}
-          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+          margin={{ top: 5, right: 30, left: 0, bottom: 40 }} // Increased bottom margin
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
@@ -31,7 +38,7 @@ const TimeSeriesChart = ({ data, xKey, yKey, title }) => {
             angle={-60}
             textAnchor="end"
             height={40}
-            tick={{ fontSize: 10 }} // Smaller font size
+            tick={{ fontSize: 10, fill: "white" }} // Smaller font size and white color
             tickFormatter={(timeStr) => {
               const date = new Date(timeStr);
               return date.toLocaleDateString(undefined, {
@@ -41,15 +48,14 @@ const TimeSeriesChart = ({ data, xKey, yKey, title }) => {
               });
             }}
           />
-          <YAxis />
+          <YAxis tick={{ fill: "white" }} />
           <Tooltip />
-          <Legend />
           <Line
             type="monotone"
             dataKey={yKey}
-            stroke="#8884d8"
+            stroke="#00FF00" // Green color
+            strokeWidth={3} // Thick line
             dot={false}
-            name={yKey}
           />
         </LineChart>
       </ResponsiveContainer>

@@ -160,8 +160,8 @@ const AppPage = () => {
         <div className="nav-content">
           <div className="branding">
             <h1 className="nav-title">
-              Welcome to your dashboard! You are now signed in and can access
-              all protected features. 🎉
+              Welcome! You can now monitor real time performance of the
+              batteries.
             </h1>
           </div>
           <div className="nav-actions">
@@ -222,6 +222,8 @@ const AppPage = () => {
               xKey="ts"
               yKey={dataType}
               title={`${dataType} Over Time`}
+              xAxisTitle="" // Pass an empty string to remove the x-axis title
+              yAxisTitle="" // Pass an empty string to remove the x-axis title
             />
           )}
         </div>

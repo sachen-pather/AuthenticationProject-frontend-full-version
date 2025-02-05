@@ -1,12 +1,12 @@
 .input-container {
-  background-color: #f8f9fa;
+  background-color: #000000; /* Changed to black */
   min-height: fit-content;
   height: auto; /* Changed from fixed height */
   padding: 1rem; /* Reduced padding */
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 1rem; /* Reduced margin */
-  border: 2px solid #4f46e5;
+  border: 2px solid #00ff00; /* Changed to green */
 }
 
 .device-input {
@@ -17,7 +17,7 @@
 .date-input label {
   display: block;
   font-weight: 600;
-  color: #333;
+  color: #ffffff; /* Changed to white */
   margin-bottom: 0.25rem; /* Reduced margin */
   font-size: 0.9rem;
 }
@@ -25,7 +25,7 @@
 .device-input input {
   width: 95%;
   padding: 0.75rem;
-  border: 1px solid #e1e4e8;
+  border: 1px solid #00ff00; /* Changed to green */
   border-radius: 4px;
   font-size: 1rem;
   transition: border-color 0.2s ease;
@@ -40,7 +40,7 @@
 .date-input input {
   width: 90%;
   padding: 0.75rem;
-  border: 1px solid #e1e4e8;
+  border: 1px solid #00ff00; /* Changed to green */
   border-radius: 4px;
   font-size: 1rem;
 }

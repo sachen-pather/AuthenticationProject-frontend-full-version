@@ -1,7 +1,7 @@
 /* App.css */
 :root {
   --primary-bg: #f8fafc;
-  --nav-bg: #ffffff;
+  --nav-bg: #000000;
   --accent-color: #4f46e5;
   --danger-color: #ef4444;
   --danger-hover: #dc2626;
@@ -9,6 +9,9 @@
   --text-secondary: #6b7280;
   --border-color: #e5e7eb;
   --app-bg-color: #f0f2f5;
+  --input-bg: #000000; /* Added black background */
+  --input-border: #00ff00; /* Added green border */
+  --input-text: #ffffff; /* Added white text */
 }
 
 .app-container {
@@ -17,7 +20,7 @@
   width: 100%; /* Forces full viewport width */
   margin: 0;
   padding: 0;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #000000 0%, #081808 100%);
   overflow-x: hidden; /* Prevents horizontal scrolling */
   display: flex;
   flex-direction: column;
@@ -49,7 +52,7 @@
 .nav-title {
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: #ffffff;
 }
 
 .nav-actions {
@@ -60,8 +63,8 @@
 
 .logout-button {
   padding: 0.5rem 1rem;
-  background-color: #811e6c;
-  color: white;
+  background-color: #00ff00;
+  color: #000000;
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
@@ -88,12 +91,11 @@
   width: 70%;
   height: 80vh;
   min-height: fit-content;
-  background-color: white;
-  border-radius: 2%;
-  padding: 2%;
+  background-color: #ffffff;
+  padding: 0.2%;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(5px);
-  border-color: #4f46e5;
+  border-color: var(--accent-color);
 }
 
 .welcome-text {
@@ -148,7 +150,7 @@
   .nav-title {
     font-size: 0.75rem;
     font-weight: 600;
-    color: var(--text-primary);
+    color: #ffffff;
   }
 
   .nav-actions {
@@ -159,13 +161,108 @@
 
   .logout-button {
     padding: 0.6rem 0.7rem;
-    background-color: #811e6c;
-    color: white;
+    background-color: #00ff00;
+    color: #000000;
     border: none;
     border-radius: 0.5rem;
     cursor: pointer;
     transition: all 0.2s ease;
     font-weight: 500;
     white-space: nowrap;
+  }
+}
+
+/* Input container styles */
+.input-container {
+  background-color: var(--input-bg); /* Changed to black */
+  min-height: fit-content;
+  height: auto; /* Changed from fixed height */
+  padding: 1rem; /* Reduced padding */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0.3rem; /* Reduced margin */
+  border: 2px solid var(--input-border); /* Changed to green */
+}
+
+.device-input {
+  margin-bottom: 1rem; /* Reduced margin */
+}
+
+.device-input label,
+.date-input label {
+  display: block;
+  font-weight: 600;
+  color: var(--input-text); /* Changed to white */
+  margin-bottom: 0.25rem; /* Reduced margin */
+  font-size: 0.9rem;
+}
+
+.device-input input {
+  width: 95%;
+  padding: 0.75rem;
+  border: 1px solid var(--input-border); /* Changed to green */
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.date-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem; /* Reduced margin */
+}
+
+.date-input input {
+  width: 90%;
+  padding: 0.75rem;
+  border: 1px solid var(--input-border); /* Changed to green */
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* Mobile styles */
+@media screen and (max-width: 768px) {
+  .input-container {
+    padding: 0.75rem; /* Further reduced padding */
+    margin-bottom: 0.75rem;
+  }
+
+  .device-input {
+    margin-bottom: 0.75rem; /* Reduced margin */
+  }
+
+  .device-input label,
+  .date-input label {
+    font-size: 0.85rem; /* Smaller font */
+    margin-bottom: 0.2rem;
+  }
+
+  .date-container {
+    flex-direction: column;
+    gap: 0.75rem; /* Reduced gap */
+  }
+
+  .device-input input,
+  .date-input input {
+    width: 100%;
+    padding: 0.6rem; /* Reduced padding */
+    font-size: 0.9rem; /* Smaller font */
+  }
+}
+
+/* Even smaller screens */
+@media screen and (max-width: 480px) {
+  .input-container {
+    padding: 0.5rem;
+  }
+
+  .device-input,
+  .date-input {
+    margin-bottom: 0.5rem;
+  }
+
+  .device-input input,
+  .date-input input {
+    padding: 0.5rem;
   }
 }
