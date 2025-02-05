@@ -41,7 +41,7 @@ const TimeSeriesChart = ({ data, xKey, yKey, title }) => {
     top: chartDimensions.height * marginPercentage,
     right: chartDimensions.width * marginPercentage,
     bottom: chartDimensions.height * marginPercentage,
-    left: chartDimensions.width * marginPercentage,
+    left: 0,
   };
 
   // Convert timestamp to readable date
