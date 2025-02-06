@@ -5,7 +5,7 @@ This is a React-based web application that provides user authentication and a da
 
 A demonstration of the system can be seen in the images below
 
-<img src="https://github.com/user-attachments/assets/c59f7d3a-cf8d-4687-ba0c-cfba86ca3496" width="400" >
+<img src="https://github.com/user-attachments/assets/ffa93418-ac97-4735-8dd5-6d9214647099" width="400" >
 <img src="https://github.com/user-attachments/assets/8ed167cc-7210-422e-8040-1efcaf29e5a4" width="400" >
 <img src="https://github.com/user-attachments/assets/daf7da9c-9c43-4620-ac23-3a08871b5921" width="400" >
 <img src="https://github.com/user-attachments/assets/51850512-0389-40b0-b1e6-6e8218dde8c5" width="400" >
