@@ -1,7 +1,7 @@
 # React Login Dashboard Application
 
 ## Overview
-This is a React-based web application that provides user authentication and a data visualization dashboard. The application allows users to log in, view real-time data through interactive charts, and manage their session securely.
+This is a React-based web application that provides user authentication and a data visualization dashboard. The user credentials are securely stored (with password hashing) on Azure Cosmos DB database. The front-end  The application allows users to log in, view real-time data through interactive charts, and manage their session securely.
 
 A demonstration of the system can be seen in the images below
 
@@ -24,6 +24,7 @@ A demonstration of the system can be seen in the images below
 ## Tech Stack
 - React (Vite)
 - React Router for navigation
+- C# .net core backend utilising MVC
 - Azure Static Web Apps for deployment
 - Environment Variable Management
 - Real-time data fetching and visualization
