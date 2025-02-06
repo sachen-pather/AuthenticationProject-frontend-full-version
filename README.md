@@ -5,12 +5,12 @@ This is a React-based web application that provides user authentication and a da
 
 A demonstration of the system can be seen in the images below
 
-![1000146812](https://github.com/user-attachments/assets/c59f7d3a-cf8d-4687-ba0c-cfba86ca3496)
-![Screenshot_2025-02-06-15-52-04-238_com miui videoplayer](https://github.com/user-attachments/assets/8ed167cc-7210-422e-8040-1efcaf29e5a4)
-![Screenshot_2025-02-06-15-52-13-978_com miui videoplayer](https://github.com/user-attachments/assets/daf7da9c-9c43-4620-ac23-3a08871b5921)
-![Screenshot_2025-02-06-15-52-18-439_com miui videoplayer](https://github.com/user-attachments/assets/51850512-0389-40b0-b1e6-6e8218dde8c5)
-![Screenshot_2025-02-06-16-02-36-893_com brave browser](https://github.com/user-attachments/assets/3f80e243-8f03-4c7c-9bcc-fc413cde0ab3)
-![Screenshot_2025-02-06-15-52-48-526_com miui videoplayer](https://github.com/user-attachments/assets/aed16e34-2f76-4ac5-a58b-23170f071cf8)
+<img src="https://github.com/user-attachments/assets/c59f7d3a-cf8d-4687-ba0c-cfba86ca3496" width="400" >
+<img src="https://github.com/user-attachments/assets/8ed167cc-7210-422e-8040-1efcaf29e5a4" width="400" >
+<img src="https://github.com/user-attachments/assets/daf7da9c-9c43-4620-ac23-3a08871b5921" width="400" >
+<img src="https://github.com/user-attachments/assets/51850512-0389-40b0-b1e6-6e8218dde8c5" width="400" >
+<img src="https://github.com/user-attachments/assets/3f80e243-8f03-4c7c-9bcc-fc413cde0ab3" width="400" >
+<img src="https://github.com/user-attachments/assets/aed16e34-2f76-4ac5-a58b-23170f071cf8" width="400" >
 
 
 ## Features
