@@ -2,18 +2,60 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./AuthStyles.css";
 
+// RegisterPage component
+/**
+ * RegisterPage component for user registration.
+ *
+ * @component
+ * @example
+ * return (
+ *   <RegisterPage />
+ * )
+ *
+ * @description
+ * This component renders a registration form for users to create an account. It includes state variables for form inputs, error messages, success messages, and loading status. The form submission is handled asynchronously, sending a registration request to the server and displaying appropriate messages based on the response.
+ *
+ * @returns {JSX.Element} The rendered registration page component.
+ *
+ * @function
+ * @name RegisterPage
+ *
+ * @state {string} email - The email input value.
+ * @state {string} password - The password input value.
+ * @state {string} confirmPassword - The confirm password input value.
+ * @state {string} error - The error message to display.
+ * @state {string} success - The success message to display.
+ * @state {boolean} loading - The loading status of the form submission.
+ *
+ * @async
+ * @function
+ * @name handleRegister
+ * @description Handles the form submission for user registration. It validates the form inputs, sends a registration request to the server, and updates the state based on the server response.
+ * @param {Event} e - The form submission event.
+ *
+ * @returns {Promise<void>}
+ *
+ * @example
+ * <form onSubmit={handleRegister}>
+ *   // form inputs
+ * </form>
+ */
+
 const RegisterPage = () => {
+  // State variables for form inputs and status messages
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState(""); // Add this line
+  const [success, setSuccess] = useState(""); // State for success message
   const [loading, setLoading] = useState(false);
 
+  // Function to handle form submission
   const handleRegister = async (e) => {
     e.preventDefault();
     setError("");
 
+    // Check if passwords match
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       return;
@@ -22,6 +64,7 @@ const RegisterPage = () => {
     setLoading(true);
 
     try {
+      // Send registration request to the server
       const response = await fetch(
         `${import.meta.env.VITE_LOGIN_DATABASE}/Account/register`,
         {
@@ -38,8 +81,9 @@ const RegisterPage = () => {
         }
       );
 
+      // Handle response from the server
       if (response.ok) {
-        // Show success message and don't navigate
+        // Show success message
         setSuccess(
           "Registration successful! Please check your email to verify your account."
         );
@@ -53,6 +97,7 @@ const RegisterPage = () => {
       setLoading(false);
     }
   };
+
   return (
     <div className="auth-page">
       <div className="auth-card">
@@ -60,9 +105,10 @@ const RegisterPage = () => {
           <h2 className="auth-title">Create Account</h2>
           <p className="auth-subtitle">Sign up to get started</p>
         </div>
+        {/* Display error message if any */}
         {error && <div className="error-message">{error}</div>}
-        {success && <div className="success-message">{success}</div>}{" "}
-        {/* Add this line */}
+        {/* Display success message if any */}
+        {success && <div className="success-message">{success}</div>}
         <form onSubmit={handleRegister} className="auth-form">
           <div className="form-group">
             <label htmlFor="email" className="form-label">

@@ -25,6 +25,16 @@ ProtectedRoute.propTypes = {
 };
 
 // App.jsx - Add new route
+/**
+ * The main application component that sets up routing and authentication.
+ *
+ * This component uses `AuthProvider` to provide authentication context,
+ * `Router` to handle routing, and `Routes` to define the different routes
+ * available in the application. It includes routes for login, registration,
+ * email verification, and a protected route for the main application page.
+ *
+ * @component
+ */
 function App() {
   return (
     <AuthProvider>

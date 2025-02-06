@@ -3,6 +3,36 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../AuthContext";
 import "./AuthStyles.css";
 
+/**
+ * LoginPage component renders a login form and handles user authentication.
+ *
+ * @component
+ * @example
+ * return (
+ *   <LoginPage />
+ * )
+ *
+ * @returns {JSX.Element} The rendered login page component.
+ *
+ * @description
+ * This component provides a login form for users to sign in to their account. It manages the state for email, password, error messages, and loading status. It also handles form submission, sending login requests to the server, and updating the authentication state based on the response.
+ *
+ * @function
+ * @name handleLogin
+ * @description Handles the form submission for user login. Sends a POST request to the login endpoint with the user's email and password. Updates the authentication state and navigates to the app page on successful login. Displays error messages on failure.
+ * @param {Event} e - The form submission event.
+ *
+ * @state {string} email - The user's email address.
+ * @state {string} password - The user's password.
+ * @state {string} error - The error message to display on login failure.
+ * @state {boolean} loading - The loading state to indicate if the login request is in progress.
+ *
+ * @hook useState - Manages the state for email, password, error, and loading.
+ * @hook useNavigate - Provides navigation functionality to redirect users after successful login.
+ * @hook useAuth - Provides authentication context to update the authentication state.
+ *
+ * @returns {JSX.Element} The rendered login page component.
+ */
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

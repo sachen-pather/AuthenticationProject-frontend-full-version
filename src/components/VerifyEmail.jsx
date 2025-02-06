@@ -3,12 +3,35 @@ import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import "./AuthStyles.css";
 
+/**
+ * VerifyEmail component handles the email verification process.
+ * It extracts the token from the URL, cleans it, and sends a verification request to the server.
+ * Depending on the response, it updates the status and navigates the user accordingly.
+ *
+ * @component
+ * @example
+ * return (
+ *   <VerifyEmail />
+ * )
+ */
+
+/**
+ * useSearchParams hook to get the search parameters from the URL.
+ * useState hook to manage the status of the verification process.
+ * useNavigate hook to programmatically navigate the user.
+ */
+
 const VerifyEmail = () => {
   const [searchParams] = useSearchParams();
   const [status, setStatus] = useState("verifying");
   const navigate = useNavigate();
 
   useEffect(() => {
+    /**
+     * verifyEmail function to handle the email verification process.
+     * It extracts the token from the URL, cleans it, and sends a verification request to the server.
+     * Depending on the response, it updates the status and navigates the user accordingly.
+     */
     const verifyEmail = async () => {
       const token = searchParams.get("token");
 
@@ -68,7 +91,6 @@ const VerifyEmail = () => {
     verifyEmail();
   }, [searchParams, navigate]);
 
-  // Rest of the component remains the same
   return (
     <div className="auth-page">
       <div className="auth-card">
