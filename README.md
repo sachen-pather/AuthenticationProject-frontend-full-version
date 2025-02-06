@@ -1,5 +1,5 @@
 # React Login Dashboard Application
-
+The backend may be seen here: https://github.com/sachen-pather/AuthenticationProject-backend-full-version-/blob/main/README.md
 ## Overview
 This is a React-based web application that provides user authentication and a data visualization dashboard. The user credentials are securely stored (with password hashing) on Azure Cosmos DB database. The front-end  The application allows users to log in, view real-time data through interactive charts, and manage their session securely.
 
