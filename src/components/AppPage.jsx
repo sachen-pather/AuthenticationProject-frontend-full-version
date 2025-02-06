@@ -119,6 +119,24 @@ const AppPage = () => {
    * @function handleRetrieval
    * @returns {Promise<void>} A promise that resolves when the data retrieval process is complete.
    */
+  /**
+   * Handles the retrieval of data based on the provided parameters.
+   *
+   * This function performs the following steps:
+   * 1. Checks if the user is authenticated. If not, it returns early.
+   * 2. Validates the required parameters (deviceId, startDate, endDate, dataType). If any are missing, it logs a message and returns early.
+   * 3. Initiates a fetch request to retrieve data from the specified database URL.
+   * 4. Handles the response:
+   *    - If the response status is 401, it logs the user out and navigates to the home page.
+   *    - If the response is not ok, it throws an error.
+   *    - If the response is ok, it parses the JSON data.
+   * 5. Logs the time taken for data retrieval.
+   * 6. Sets the retrieved data or logs an error if the retrieval fails.
+   *
+   * @async
+   * @function handleRetrieval
+   * @returns {Promise<void>} A promise that resolves when the data retrieval process is complete.
+   */
   const handleRetrieval = useCallback(async () => {
     if (!isAuthenticated) return;
 
