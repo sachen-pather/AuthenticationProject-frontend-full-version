@@ -3,7 +3,7 @@ The backend may be seen here: https://github.com/sachen-pather/AuthenticationPro
 ## Overview
 This is a React-based web application that provides user authentication and a data visualization dashboard. The user credentials are securely stored (with password hashing) on Azure Cosmos DB database. The front-end  The application allows users to log in, view real-time data through interactive charts, and manage their session securely.
 
-A demonstration of the system can be seen in the images below, alternatively the deployed system may be seen here https://white-plant-0e13da003.4.azurestaticapps.net/, however at the time of viewing the API which transmits data may no longer be running due to privacy reasons, hence the graph displaying data will not be present.
+A demonstration of the system can be seen in the images below, alternatively the deployed system may be seen here https://white-plant-0e13da003.4.azurestaticapps.net/, however at the time of viewing the API which transmits data may no longer be active due to privacy reasons, hence the graph displaying data may not be present.
 
 <img src="https://github.com/user-attachments/assets/ffa93418-ac97-4735-8dd5-6d9214647099" width="400" >
 <img src="https://github.com/user-attachments/assets/8ed167cc-7210-422e-8040-1efcaf29e5a4" width="400" >
