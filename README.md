@@ -1,7 +1,17 @@
 # React Login Dashboard Application
-
+The backend may be seen here: https://github.com/sachen-pather/AuthenticationProject-backend-full-version-/blob/main/README.md
 ## Overview
-This is a React-based web application that provides user authentication and a data visualization dashboard. The application allows users to log in, view real-time data through interactive charts, and manage their session securely.
+This is a React-based web application that provides user authentication and a data visualization dashboard. The user credentials are securely stored (with password hashing) on Azure Cosmos DB database. The front-end  The application allows users to log in, view real-time data through interactive charts, and manage their session securely.
+
+A demonstration of the system can be seen in the images below, alternatively the deployed system may be seen here https://white-plant-0e13da003.4.azurestaticapps.net/, however at the time of viewing the API which transmits data may no longer be active due to privacy reasons, hence the graph displaying data may not be present.
+
+<img src="https://github.com/user-attachments/assets/ffa93418-ac97-4735-8dd5-6d9214647099" width="400" >
+<img src="https://github.com/user-attachments/assets/8ed167cc-7210-422e-8040-1efcaf29e5a4" width="400" >
+<img src="https://github.com/user-attachments/assets/daf7da9c-9c43-4620-ac23-3a08871b5921" width="400" >
+<img src="https://github.com/user-attachments/assets/51850512-0389-40b0-b1e6-6e8218dde8c5" width="400" >
+<img src="https://github.com/user-attachments/assets/3f80e243-8f03-4c7c-9bcc-fc413cde0ab3" width="400" >
+<img src="https://github.com/user-attachments/assets/aed16e34-2f76-4ac5-a58b-23170f071cf8" width="400" >
+
 
 ## Features
 - User Authentication (Login/Logout)
@@ -14,6 +24,7 @@ This is a React-based web application that provides user authentication and a da
 ## Tech Stack
 - React (Vite)
 - React Router for navigation
+- C# .net core backend utilising MVC
 - Azure Static Web Apps for deployment
 - Environment Variable Management
 - Real-time data fetching and visualization
