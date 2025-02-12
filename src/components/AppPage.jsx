@@ -1,52 +1,54 @@
+"use client";
+
 import { useAuth } from "../AuthContext";
 import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import TimeSeriesChart from "./TimeSeriesChart";
-import "./AppPage.css";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
-/**
- * AppPage component handles user authentication, data retrieval, and rendering of the main application page.
- *
- * - Initializes default dates (today and yesterday) for data retrieval.
- * - Checks user authentication status and redirects to login page if not authenticated.
- * - Provides a logout function to handle user sign-out.
- * - Retrieves data based on user input parameters (device ID, data type, start date, end date).
- * - Displays a loading indicator while checking authentication status.
- * - Renders the main application interface with input fields for device ID, data type, and date range.
- * - Displays a time series chart with the retrieved data if available.
- *
- * @component
- */
+const API_BASE_URL = "https://api.coingecko.com/api/v3";
+
+async function getTopCryptos(count = 3) {
+  const response = await fetch(
+    `${API_BASE_URL}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${count}&page=1&sparkline=false`
+  );
+  if (!response.ok) {
+    throw new Error("Failed to fetch top cryptos");
+  }
+  return response.json();
+}
+
+async function getCryptoHistory(id) {
+  const response = await fetch(
+    `${API_BASE_URL}/coins/${id}/market_chart?vs_currency=usd&days=30&interval=daily`
+  );
+  if (!response.ok) {
+    throw new Error("Failed to fetch crypto history");
+  }
+  const data = await response.json();
+  return data.prices.map(([timestamp, price]) => ({
+    date: new Date(timestamp).toLocaleDateString(),
+    price,
+  }));
+}
 
 const AppPage = () => {
   const navigate = useNavigate();
   const { isAuthenticated, setIsAuthenticated } = useAuth();
-  const [data, setData] = useState(null);
-  const [dataType, setDataType] = useState("pSC");
-  const [deviceId, setDeviceId] = useState("e00fce68e3dabdc63fb13d69");
+  const [cryptos, setCryptos] = useState([]);
+  const [selectedCrypto, setSelectedCrypto] = useState(null);
+  const [priceHistory, setPriceHistory] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const getDefaultDates = useCallback(() => {
-    const today = new Date();
-    const yesterday = new Date(today);
-    // Set the date of the 'yesterday' object to one day before today
-    yesterday.setDate(yesterday.getDate() - 1);
-
-    // Format the dates to ISO string and slice to get the first 19 characters (YYYY-MM-DDTHH:MM:SS)
-    const formattedToday = today.toISOString().slice(0, 19);
-    const formattedYesterday = yesterday.toISOString().slice(0, 19);
-
-    // Return an object containing the formatted dates
-    return { today: formattedToday, yesterday: formattedYesterday };
-  }, []); // useCallback ensures the function is memoized and not recreated on every render
-
-  const [startDate, setStartDate] = useState(() => getDefaultDates().yesterday);
-  const [endDate, setEndDate] = useState(() => getDefaultDates().today);
-
-  // Effect to check authentication status
   useEffect(() => {
     const checkAuth = () => {
-      // Retrieve the authentication status from localStorage
       const storedAuth = localStorage.getItem("isAuthenticated");
       if (!storedAuth) {
         setIsAuthenticated(false);
@@ -56,19 +58,7 @@ const AppPage = () => {
     };
 
     checkAuth();
-  }, [navigate, setIsAuthenticated]); // Dependencies array ensures this effect runs only when navigate or setIsAuthenticated changes
-
-  /** Function to handle user logout
-   * Handles the logout process by making a request to the logout endpoint.
-   *
-   * This function performs the following steps:
-   * 1. Sends a GET request to the logout endpoint using the fetch API.
-   * 2. If the request is successful (response.ok), it removes the "isAuthenticated" item from localStorage,
-   *    updates the authentication state, and navigates to the home page.
-   * 3. If the request fails, it logs the error status to the console.
-   * 4. In case of any error during the fetch request, it logs the error to the console,
-   *    clears the local authentication state, and navigates to the home page.
-   */
+  }, [navigate, setIsAuthenticated]);
 
   const handleLogout = async () => {
     try {
@@ -92,127 +82,52 @@ const AppPage = () => {
       }
     } catch (error) {
       console.error("Logout failed:", error);
-      // Still clear local auth on error
       localStorage.removeItem("isAuthenticated");
       setIsAuthenticated(false);
       navigate("/");
     }
   };
 
-  // Function to handle data retrieval
-  /**
-   * Handles the retrieval of data from a remote server based on specified parameters.
-   *
-   * This function is used to fetch data from a remote server using the provided device ID,
-   * start date, end date, and data type. It performs the following steps:
-   * 1. Checks if the user is authenticated. If not, it exits early.
-   * 2. Validates the required parameters (deviceId, startDate, endDate, dataType). If any are missing, it logs a message and exits early.
-   * 3. Initiates a fetch request to the remote server with the specified parameters.
-   * 4. Handles the response:
-   *    - If the response status is 401 (Unauthorized), it logs the user out and navigates to the home page.
-   *    - If the response is not OK, it throws an error.
-   *    - If the response is OK, it parses the JSON data and updates the state with the retrieved data.
-   * 5. Logs the time taken for the data retrieval process.
-   * 6. Handles any errors that occur during the fetch request and logs the time taken before the failure.
-   *
-   * @async
-   * @function handleRetrieval
-   * @returns {Promise<void>} A promise that resolves when the data retrieval process is complete.
-   */
-  /**
-   * Handles the retrieval of data based on the provided parameters.
-   *
-   * This function performs the following steps:
-   * 1. Checks if the user is authenticated. If not, it returns early.
-   * 2. Validates the required parameters (deviceId, startDate, endDate, dataType). If any are missing, it logs a message and returns early.
-   * 3. Initiates a fetch request to retrieve data from the specified database URL.
-   * 4. Handles the response:
-   *    - If the response status is 401, it logs the user out and navigates to the home page.
-   *    - If the response is not ok, it throws an error.
-   *    - If the response is ok, it parses the JSON data.
-   * 5. Logs the time taken for data retrieval.
-   * 6. Sets the retrieved data or logs an error if the retrieval fails.
-   *
-   * @async
-   * @function handleRetrieval
-   * @returns {Promise<void>} A promise that resolves when the data retrieval process is complete.
-   */
-  const handleRetrieval = useCallback(async () => {
+  const fetchCryptoData = useCallback(async () => {
     if (!isAuthenticated) return;
 
-    if (
-      !deviceId?.trim() ||
-      !startDate?.trim() ||
-      !endDate?.trim() ||
-      !dataType?.trim()
-    ) {
-      console.log("Missing required parameters - skipping data retrieval");
-      setData(null);
-      return;
-    }
-
-    const startTime = performance.now();
     try {
-      const response = await fetch(
-        `${
-          import.meta.env.VITE_DATA_DATABASE
-        }?deviceId=${deviceId}&startDate=${startDate}&endDate=${endDate}&Data=${dataType}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${import.meta.env.VITE_BEARER_TOKEN}`,
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        }
-      );
-
-      if (!response.ok) {
-        if (response.status === 401) {
-          localStorage.removeItem("isAuthenticated");
-          setIsAuthenticated(false);
-          navigate("/");
-          return;
-        }
-        throw new Error(`HTTP error! status: ${response.status}`);
+      const topCryptos = await getTopCryptos(3);
+      setCryptos(topCryptos);
+      if (topCryptos.length > 0) {
+        setSelectedCrypto(topCryptos[0]);
       }
-
-      const jsonData = await response.json();
-      const endTime = performance.now();
-      console.log(`Data retrieval took ${endTime - startTime}ms`);
-
-      if (!jsonData || (Array.isArray(jsonData) && jsonData.length === 0)) {
-        console.log("Received empty data");
-        setData(null);
-        return;
-      }
-
-      setData(jsonData);
     } catch (error) {
-      const endTime = performance.now();
-      console.log(`Data retrieval failed after ${endTime - startTime}ms`);
-      console.error("Retrieval failed:", error);
-      setData(null);
+      console.error("Error fetching top cryptos:", error);
     }
-  }, [
-    deviceId,
-    startDate,
-    endDate,
-    dataType,
-    isAuthenticated,
-    navigate,
-    setIsAuthenticated,
-  ]);
+  }, [isAuthenticated]);
 
-  // Effect to trigger data retrieval when dependencies change
   useEffect(() => {
     if (isAuthenticated && !loading) {
-      handleRetrieval();
+      fetchCryptoData();
     }
-  }, [handleRetrieval, isAuthenticated, loading]);
+  }, [fetchCryptoData, isAuthenticated, loading]);
+
+  useEffect(() => {
+    async function fetchHistory() {
+      if (selectedCrypto) {
+        try {
+          const history = await getCryptoHistory(selectedCrypto.id);
+          setPriceHistory(history);
+        } catch (error) {
+          console.error("Error fetching price history:", error);
+        }
+      }
+    }
+    fetchHistory();
+  }, [selectedCrypto]);
 
   if (loading) {
-    return <div className="loading">Loading...</div>;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        Loading...
+      </div>
+    );
   }
 
   if (!isAuthenticated) {
@@ -220,79 +135,94 @@ const AppPage = () => {
   }
 
   return (
-    <div className="app-container">
-      <header className="nav-header">
-        <div className="nav-content">
-          <div className="branding">
-            <h1 className="nav-title">
-              Welcome! You can now monitor real time performance of the
-              batteries.
-            </h1>
-          </div>
-          <div className="nav-actions">
-            <button onClick={handleLogout} className="logout-button">
+    <div className="flex h-screen bg-gray-900 text-white">
+      <div className="w-64 bg-gray-800 p-4">
+        <h2 className="text-lg font-semibold mb-4">Menu</h2>
+        <nav className="space-y-2">
+          <button className="w-full text-left py-2 px-4 rounded hover:bg-gray-700">
+            Dashboard
+          </button>
+          <button className="w-full text-left py-2 px-4 rounded hover:bg-gray-700">
+            Markets
+          </button>
+          <button className="w-full text-left py-2 px-4 rounded hover:bg-gray-700">
+            Watchlist
+          </button>
+        </nav>
+      </div>
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <header className="bg-gray-800 border-b border-gray-700">
+          <div className="h-16 flex items-center justify-between px-4">
+            <div>
+              <h1 className="text-2xl font-bold">
+                Old Data no longer available for battery system, Instead observe
+                this crypto data
+              </h1>
+            </div>
+            <button
+              onClick={handleLogout}
+              className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+            >
               Sign Out
             </button>
           </div>
-        </div>
-      </header>
-
-      <main className="main-content">
-        <div className="content-card">
-          <div className="input-container">
-            <div className="device-input">
-              <label>Device ID:</label>
-              <input
-                type="text"
-                value={deviceId}
-                onChange={(e) => setDeviceId(e.target.value)}
-                placeholder="Enter Device ID"
-              />
-            </div>
-
-            <div className="device-input">
-              <label>Data Type:</label>
-              <input
-                type="text"
-                value={dataType}
-                onChange={(e) => setDataType(e.target.value)}
-                placeholder="Enter Data Type"
-              />
-            </div>
-
-            <div className="date-container">
-              <div className="date-input">
-                <label>Start Date:</label>
-                <input
-                  type="datetime-local"
-                  value={startDate}
-                  onChange={(e) => setStartDate(e.target.value)}
-                />
+        </header>
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-900 p-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            {cryptos.map((crypto) => (
+              <div
+                key={crypto.id}
+                className={`bg-gray-800 p-4 rounded-lg cursor-pointer ${
+                  selectedCrypto?.id === crypto.id ? "ring-2 ring-blue-500" : ""
+                }`}
+                onClick={() => setSelectedCrypto(crypto)}
+              >
+                <h3 className="text-lg font-semibold mb-2">
+                  {crypto.name} ({crypto.symbol.toUpperCase()})
+                </h3>
+                <p className="text-2xl font-bold">
+                  ${crypto.current_price.toLocaleString()}
+                </p>
+                <p
+                  className={`text-sm ${
+                    crypto.price_change_percentage_24h >= 0
+                      ? "text-green-500"
+                      : "text-red-500"
+                  }`}
+                >
+                  {crypto.price_change_percentage_24h >= 0 ? "+" : ""}
+                  {crypto.price_change_percentage_24h.toFixed(2)}%
+                </p>
               </div>
-
-              <div className="date-input">
-                <label>End Date:</label>
-                <input
-                  type="datetime-local"
-                  value={endDate}
-                  onChange={(e) => setEndDate(e.target.value)}
-                />
-              </div>
-            </div>
+            ))}
           </div>
-
-          {data && (
-            <TimeSeriesChart
-              data={data}
-              xKey="ts"
-              yKey={dataType}
-              title={`${dataType} Over Time`}
-              startDate={`${startDate}`}
-              endDate={`${endDate}`}
-            />
+          {selectedCrypto && (
+            <div className="bg-gray-800 p-4 rounded-lg">
+              <h2 className="text-xl font-semibold mb-4">
+                {selectedCrypto.name} Price History (30 Days)
+              </h2>
+              <div className="h-[300px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={priceHistory}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                    <XAxis dataKey="date" stroke="#9CA3AF" />
+                    <YAxis stroke="#9CA3AF" />
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: "#1F2937",
+                        borderColor: "#374151",
+                      }}
+                      labelStyle={{ color: "#D1D5DB" }}
+                      itemStyle={{ color: "#D1D5DB" }}
+                    />
+                    <Line type="monotone" dataKey="price" stroke="#3B82F6" />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
           )}
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
   );
 };

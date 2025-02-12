@@ -20,7 +20,7 @@ import "./AuthStyles.css";
  * @function
  * @name RegisterPage
  *
- * @state {string} email - The email input value.
+ * @state {string} email  The email input value.
  * @state {string} password - The password input value.
  * @state {string} confirmPassword - The confirm password input value.
  * @state {string} error - The error message to display.
