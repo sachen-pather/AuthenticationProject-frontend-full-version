@@ -136,7 +136,7 @@ const AppPage = () => {
   }
 
   return (
-    <div className="h-screen flex flex-col bg-gray-900 text-white">
+    <div className="h-screen flex flex-col bg-gray-900 text-white text-sm">
       <header className="bg-gray-800 border-b border-gray-700">
         <div className="flex items-center justify-between px-4 h-16">
           <button
@@ -165,16 +165,20 @@ const AppPage = () => {
             Crypto Dashboard
           </h1>
 
-          <h1 className="text-lg md:text-2xl font-bold truncate">
-            Battery Data is no longer available, instead view crypto data
-          </h1>
-
           <button
             onClick={handleLogout}
             className="px-3 py-1 md:px-4 md:py-2 bg-red-600 text-white rounded hover:bg-red-700"
           >
             Sign Out
           </button>
+        </div>
+      </header>
+
+      <header className="bg-gray-800 border-b border-gray-700">
+        <div className="flex items-center justify-between px-4 h-16">
+          <h1 className="text-xs md:text-lg font-bold truncate">
+            Battery Data is no longer available, instead view crypto data
+          </h1>
         </div>
       </header>
 
